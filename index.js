@@ -41,9 +41,9 @@ app.set("view engine", "ejs");
 
 app.use('/auth', authRoutes);
 app.use('/author', authMiddleware, authorRoutes);
-app.use('/blogAuth', authMiddleware, blogAuthRoutes);
+app.use('/blogauth', authMiddleware, blogAuthRoutes);
 app.use('/blog', blogRoutes);
-app.use('/tags', authMiddleware, tagRoutes);
+app.use('/tags', tagRoutes);
 
 app.listen(config.PORT, () => {
   console.log('server listening on PORT', config.PORT);
