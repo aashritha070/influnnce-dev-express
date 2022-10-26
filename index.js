@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 //routes import
 const authRoutes = require('./routes/authRoutes');
 const authorRoutes = require('./routes/authorRoutes');
+const blogAuthRoutes = require('./routes/blogAuthRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const tagRoutes = require('./routes/tagRoutes');
 
@@ -40,7 +41,8 @@ app.set("view engine", "ejs");
 
 app.use('/auth', authRoutes);
 app.use('/author', authMiddleware, authorRoutes);
-app.use('/blog', authMiddleware, blogRoutes);
+app.use('/blogAuth', authMiddleware, blogAuthRoutes);
+app.use('/blog', blogRoutes);
 app.use('/tags', authMiddleware, tagRoutes);
 
 app.listen(config.PORT, () => {
