@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { fetchAllBlog, fetchTopBlog, fetchBlogById, fetchBlogByAuthor, fetchBlogBySelectedTags } = require('../controllers/blogControllers');
+const { fetchAllBlog, fetchTopBlog, fetchBlogById, fetchCoverPic, fetchBlogByAuthor, fetchBlogBySelectedTags } = require('../controllers/blogControllers');
 const multer = require("multer");
 
 router.post("/all", (req, res) => fetchAllBlog(req, res)); // fetch all blog
@@ -11,5 +11,7 @@ router.post("/id/:id", (req, res) => fetchBlogById(req, res)); // fetch blog by 
 router.post("/author", (req, res) => fetchBlogByAuthor(req, res)); // fetch blog by author
 
 router.post("/selectedtag", (req, res) => fetchBlogBySelectedTags(req, res)); // fetch blog by tag 
+
+router.post("/coverpic/:id", (req, res) => fetchCoverPic(req, res));
 
 module.exports = router;

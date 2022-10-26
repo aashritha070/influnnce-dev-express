@@ -1,4 +1,5 @@
 const blogDataModel = require('../models/blogDataModel');
+const imageDataModel = require('../models/imageDataModel');
 
 const fs = require("fs");
 const { promisify } = require('util')
@@ -189,7 +190,29 @@ const fetchAllBlog = async (req, res) => {
     }
 }
 
-const updateCoverPic = async (req, res) => {
-
+const uploadCoverPic = async (req, res) => {
+    const newImage = new imageDataModel({
+        emailId: req.emailId,
+        img: {
+            data: req.file.filename,
+            contentType: req.file.mimetype
+        }
+    })
+    const image = await newImage.save();
+    return res.status(200).json({ message: "Cover image uploaded", data: image })
 }
-module.exports = { createBlog, updateCoverPic, editBlogById, deleteBlogById, fetchTopBlog, fetchBlogBySelectedTags, fetchAllBlog, fetchBlogById, fetchBlogByAuthor, fetchBlogByTags };
+
+const fetchCoverPic = async (req, res) => {
+    try {
+        const image = await imageDataModel.findById(req.params.id);
+        return res
+            .status(200)
+            .json({ message: "Cover image data", data: image });
+    }
+    catch (err) {
+        return res
+            .status(500)
+            .json({ message: err });
+    }
+}
+module.exports = { createBlog, uploadCoverPic, fetchCoverPic, editBlogById, deleteBlogById, fetchTopBlog, fetchBlogBySelectedTags, fetchAllBlog, fetchBlogById, fetchBlogByAuthor, fetchBlogByTags };
